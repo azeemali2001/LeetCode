@@ -3,8 +3,14 @@ class Solution {
         int lo = 0;
         int hi = arr.length-1;
         if(arr[lo] <= arr[hi]){
+            // Array is sorted 
+                //i.e 0 rotation 
+            // here the first element will be the smallest element
+            
             return arr[0];
         }
+        
+        //pivot element always be the smallest element
         
         while(lo <= hi){
             int mid = (lo+hi)/2;
