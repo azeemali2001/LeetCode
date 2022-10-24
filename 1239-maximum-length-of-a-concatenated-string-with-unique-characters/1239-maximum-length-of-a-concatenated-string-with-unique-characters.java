@@ -1,20 +1,22 @@
 class Solution {
+    static int ans;
     public int maxLength(List<String> arr) {
-        return solve(arr,0,"");
+        ans = 0;
+        solve(arr,0,"");
+        return ans;
     }
     
-    public static int solve(List<String> arr, int i, String asf){
+    public static void solve(List<String> arr, int i, String asf){
         if(i==arr.size()){
             if(isValid(asf)){
-                return asf.length();
+                ans = Math.max(asf.length(),ans);
             }
-            return 0;
+            return;
         }
         
-        int left = solve(arr,i+1,asf+arr.get(i));
-        int right = solve(arr,i+1,asf);
-        
-        return Math.max(left,right);
+        solve(arr,i+1,asf+arr.get(i));
+        solve(arr,i+1,asf);
+
     }
     
     public static boolean isValid(String str){
