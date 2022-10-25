@@ -37,20 +37,41 @@ public class Main {
 
 class Solution {
     int distinctCount(int[] arr, int n) {
+        int count = 0;
         // code here
-        HashSet<Integer> hs = new HashSet<>();
+        int i = 0;
+        int j = arr.length-1;
         
-        for(int i=0;i<arr.length;i++){
-            if(arr[i] < 0){
-                int val = Math.abs(arr[i]);
-                if(!hs.contains(val)){
-                    hs.add(val);
+        int pre = Integer.MIN_VALUE;
+        int next = Integer.MAX_VALUE;
+        
+        while(i<=j){
+            if(Math.abs(arr[i]) == Math.abs(arr[j])){
+                 if(pre != arr[i] && next != arr[j]){
+                     count++;
+                 }
+                 
+                 pre = arr[i];
+                 next = arr[j];
+                 i++;
+                 j--;
+                 
+            } else if (Math.abs(arr[i]) < Math.abs(arr[j])) {
+                if(next != arr[j]){
+                    count++;
                 }
+                next = arr[j];
+                j--;
+                
             } else {
-                hs.add(arr[i]);
+                if(pre!=arr[i]){
+                    count++;
+                }
+                pre = arr[i];
+                i++;
             }
         }
         
-        return hs.size();
+        return count;
     }
 }
