@@ -42,7 +42,7 @@ class Solution {
             int lo = 0;
             int hi = m-1;
             
-            int idx = -1;
+            int idx = m;
             
             while(lo <= hi){
                 int mid = (lo+hi)/2;
@@ -54,11 +54,9 @@ class Solution {
                     lo = mid+1;
                 }
             }
-            if(idx != -1){
-                if(m-idx > ans){
-                    ans = m-idx;
-                    res = i;
-                }
+            if(m-idx > ans){
+                ans = m-idx;
+                res = i;
             }
         }
         
