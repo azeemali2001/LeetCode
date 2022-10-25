@@ -31,15 +31,44 @@ class GfG
 
 class Sol
 {
-    public static int search(int arr[], int N)
+    public static int search(int[] arr, int N)
     {
         // your code here
-        int ans = 0;
-        
-        for(int val : arr){
-            ans = (ans ^ val); 
+        if(N==1){
+            return arr[0];
+        }
+        if(arr[0] != arr[1]){
+            return arr[0];
+        } 
+        if(arr[N-1] != arr[N-2]){
+            return arr[N-1];
         }
         
-        return ans;
+        int lo = 0;
+        int hi = arr.length-1;
+        
+        while(lo <= hi){
+            int mid = (lo+hi)/2;
+            
+            if(arr[mid] != arr[mid-1] && arr[mid] != arr[mid+1]){
+                return arr[mid];
+            } else if(arr[mid] == arr[mid-1]){
+                int lc = mid-lo+1;
+                if(lc % 2 == 0){
+                    lo = mid+1;
+                } else {
+                    hi = mid-2;
+                }
+            } else if(arr[mid] == arr[mid+1]) {
+                int rc = hi-mid+1;
+                if(rc % 2 == 0){
+                    hi = mid-1;
+                } else {
+                    lo = mid+2;
+                }
+            }
+        }
+        
+        return -1;
     }
 }
