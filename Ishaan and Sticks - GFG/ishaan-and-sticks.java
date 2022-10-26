@@ -60,8 +60,6 @@ class Complete{
         int max = Integer.MIN_VALUE;
         
         for(int i=0;i<arr.length;i++){
-            min = Math.min(min,arr[i]);
-            max = Math.max(max,arr[i]);
             hm.put(arr[i],hm.getOrDefault(arr[i],0)+1);
         }
         
@@ -69,8 +67,7 @@ class Complete{
         int area = -1;
         int count = 0;
         
-        for(int i=min;i<=max;i++){
-            if(!hm.containsKey(i)) continue;
+        for(Integer i : hm.keySet()){
             
             if(hm.get(i) >= 4){
                 int narea = i * i;
@@ -81,15 +78,14 @@ class Complete{
             }
         }  
         
-        if(area == -1){
-            ArrayList<Integer> ans = new ArrayList<>();
-            ans.add(-1);
-            return ans;
-        }
-        
         ArrayList<Integer> ans = new ArrayList<>();
-        ans.add(area);
-        ans.add(count);
+        
+        if(area == -1){
+            ans.add(-1);
+        }else {
+            ans.add(area);
+            ans.add(count);
+        }
         return ans;
     }
 }
