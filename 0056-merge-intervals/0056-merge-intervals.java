@@ -1,56 +1,32 @@
 class Solution {
-    
-    public static class Pair implements Comparable<Pair> {
-        int sp;
-        int ep;
-        
-        Pair(int sp,int ep){
-            this.sp = sp;
-            this.ep = ep;
-        }
-        
-        public int compareTo(Pair o){
-            return this.sp-o.sp;
-        }
-    }
-    
     public int[][] merge(int[][] intervals) {
-        Pair[] arr = new Pair[intervals.length];
+        Arrays.sort(intervals,(a,b)->{
+            return a[0]-b[0];
+        });
         
-        int idx = 0;
-        for(int[] interval : intervals){
-            arr[idx++] = new Pair(interval[0],interval[1]);
-        }
+        ArrayList<int[]> list = new ArrayList<>();
+        list.add(intervals[0]);
         
-        Arrays.sort(arr);
-        
-        ArrayList<Pair> ans = new ArrayList<>();
-        ans.add(arr[0]);
-        
-        for(int i=1;i<arr.length;i++){
+        for(int i=1;i<intervals.length;i++){
+            int sp1 = list.get(list.size()-1)[0];
+            int ep1 = list.get(list.size()-1)[1];
             
-            int sp1 = ans.get(ans.size()-1).sp;
-            int ep1 = ans.get(ans.size()-1).ep;
-            
-            int sp2 = arr[i].sp;
-            int ep2 = arr[i].ep;
+            int sp2 = intervals[i][0];
+            int ep2 = intervals[i][1];
             
             if(ep1 >= sp2){
-                //Merge
-                ans.get(ans.size()-1).ep = Math.max(ep1,ep2);
+                // Merging
+                list.get(list.size()-1)[1] = Math.max(ep1,ep2);
             } else {
-                //No merge add new Pair
-                ans.add(new Pair(sp2,ep2));
+                //No merging
+                int[] tmp = new int[2];
+                tmp[0] = sp2;
+                tmp[1] = ep2;
+                list.add(tmp);
             }
         }
         
-        int[][] res = new int[ans.size()][2];
-        
-        for(int i=0;i<ans.size();i++){
-            res[i][0] = ans.get(i).sp;
-            res[i][1] = ans.get(i).ep;
-        }
-        
-        return res;
+        int[][] ans = list.toArray(new int[list.size()][2]);
+        return ans;
     }
 }
