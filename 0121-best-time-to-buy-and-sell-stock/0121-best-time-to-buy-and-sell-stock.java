@@ -8,9 +8,9 @@ class Solution {
         while(sd < prices.length){
             if(prices[sd] < prices[bd]){
                 bd = sd;
-            } 
-            
-            ans = Math.max(ans,prices[sd]-prices[bd]);
+            } else {
+                ans = Math.max(ans,prices[sd]-prices[bd]);    
+            }
             sd++;
         }
         
