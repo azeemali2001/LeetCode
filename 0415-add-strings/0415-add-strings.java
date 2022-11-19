@@ -1,6 +1,6 @@
 class Solution {
     public String addStrings(String nums1, String nums2) {
-        String ans = "";
+        StringBuilder ans = new StringBuilder();
         int i = nums1.length()-1;
         int j = nums2.length()-1;
         
@@ -11,12 +11,12 @@ class Solution {
             int jval = j<0 ? 0 : nums2.charAt(j)-'0';
             
             int sum = ival+jval+carry;
-            ans =  sum % 10 + ans;
+            ans.insert(0,sum%10);
             carry = sum / 10;
             i--;
             j--;
         }
         
-        return ans;
+        return ans.toString();
     }
 }
