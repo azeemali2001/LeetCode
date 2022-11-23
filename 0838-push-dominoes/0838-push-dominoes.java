@@ -4,28 +4,13 @@ class Solution {
         if(arr[i] == 'L' && arr[j] == 'R') {
             //Nothing to do
         } else if(arr[i] == 'R' && arr[j] == 'L') {
-            int mid = (i+j)/2;
-            
-            if((j-i-1) % 2 == 0){
-                //Even Dominoes
-                for(int k=i+1;k<=mid;k++){
-                    arr[k] = 'R';
-                }
-                
-                for(int k=mid+1;k<j;k++){
-                    arr[k] = 'L';
-                }
-                
-                
-            } else {
-                //Odd Dominoes
-                for(int k=i+1;k<mid;k++){
-                    arr[k] = 'R';
-                }
-                
-                for(int k=mid+1;k<j;k++){
-                    arr[k] = 'L';
-                }
+            i++;
+            j--;
+            while(i<j){
+                arr[i] = 'R';
+                arr[j] = 'L';
+                i++;
+                j--;
             }
         } else if(arr[i] == 'L' && arr[j] == 'L') {
             for(int k=i+1;k<j;k++){
