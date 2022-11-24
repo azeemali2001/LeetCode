@@ -4,12 +4,10 @@ class Solution {
         int osum = nums[0];
         
         for(int i=1;i<nums.length;i++){
-            int val = nums[i];
-            
-            if(csum + val >= val){
-                csum += val;
+            if(csum >= 0){
+                csum += nums[i];
             } else {
-                csum = val;
+                csum = nums[i];
             }
             
             if(csum > osum){
