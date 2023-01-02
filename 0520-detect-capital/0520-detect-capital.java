@@ -1,29 +1,16 @@
 class Solution {
     public boolean detectCapitalUse(String word) {
-        if(word.charAt(0) >= 'A' && word.charAt(0) <= 'Z') {
-            if(word.length() >= 2 && word.charAt(1) >= 'A' && word.charAt(1) <= 'Z') {
-                for(int i=0;i<word.length();i++) {
-                    if(word.charAt(i) >= 'a' && word.charAt(i) <= 'z') {
-                        return false;
-                    }
-                }
-                return true;
-            } else {
-            for(int i=1;i<word.length();i++) {
-                if(word.charAt(i) >= 'A' && word.charAt(i) <= 'Z') {
-                    return false;
-                }       
-            }
-            return true;
-        }
-            
-        } else {
-            for(int i=1;i<word.length();i++) {
-                if(word.charAt(i) >= 'A' && word.charAt(i) <= 'Z') {
-                    return false;
-                }       
-            }
-            return true;
-        }
+        if(word.length() == 1) return true;
+        
+        boolean isFirstCapital = false;
+        if(word.charAt(0) >= 'A' && word.charAt(0) <='Z') isFirstCapital = true;
+        
+        int count = 0;
+        for(int i=0;i<word.length();i++) {
+            if(word.charAt(i) >= 'A' && word.charAt(i) <='Z') count++;
+        }   
+        
+        if(count == word.length() || count == 0  || (isFirstCapital && count == 1)) return true;
+        return false;
     }
 }
