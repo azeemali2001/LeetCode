@@ -1,32 +1,48 @@
 class RandomizedSet {
     
-    HashSet<Integer> hs;
-    
+    HashMap<Integer,Integer> hm;
+    List<Integer> list;
+    Random r;
+
     public RandomizedSet() {
-        hs = new HashSet<>();
+        hm = new HashMap<>();
+        list = new ArrayList<>();
+        r = new Random();
     }
     
     public boolean insert(int val) {
-        if(hs.contains(val)) return false;
+        if(hm.containsKey(val)) {
+            return false;
+        }
         
-        hs.add(val);
+        hm.put(val,list.size());
+        list.add(val);
         return true;
     }
     
     public boolean remove(int val) {
-        if(hs.contains(val)) {
-            hs.remove(val);
+        if(hm.containsKey(val) == false) {
+            return false;
+        }
+        
+        int idx = hm.get(val);
+        hm.remove(val);
+        
+        if(idx == list.size()-1) {
+            list.remove(list.size()-1);
             return true;
         }
         
-        return false;
+        list.set(idx,list.get(list.size()-1));
+        list.remove(list.size()-1);
+        
+        hm.put(list.get(idx),idx);
+        return true;
     }
     
     public int getRandom() {
-        List<Integer> list = new ArrayList<>(hs);
-        int r=(int)(Math.random()*hs.size());
-        
-       return list.get(r);
+        int randomIdx = r.nextInt(0,list.size());
+        return list.get(randomIdx);
     }
 }
 
