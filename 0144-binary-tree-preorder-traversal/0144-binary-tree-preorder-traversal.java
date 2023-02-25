@@ -14,30 +14,38 @@
  * }
  */
 class Solution {
-    public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> list = new ArrayList<>();
+    public static TreeNode getRightMostNode(TreeNode ln, TreeNode curr) {
+      while(ln.right != null && ln.right != curr) {
+          ln = ln.right;
+      }
+      
+      return ln;
+  }
+
+  public static ArrayList<Integer> preorderTraversal(TreeNode node) {
+    TreeNode curr = node;
+    ArrayList<Integer> ans = new ArrayList<>();
+    
+    while(curr != null) {
+        TreeNode ln = curr.left;
         
-        while(root != null){
+        if(ln == null) {
+            ans.add(curr.val);
+            curr = curr.right;
+        } else {
+            TreeNode rightMostNode = getRightMostNode(ln,curr);
             
-            if(root.left == null){
-                list.add(root.val);
-                root = root.right;
-            }else{
-                TreeNode temp = root.left;
-                while(temp.right != null && temp.right != root){
-                    temp = temp.right;
-                }
-                
-                if(temp.right == null){
-                    list.add(root.val);
-                    temp.right = root;
-                    root = root.left;
-                }else if(temp.right == root){
-                    temp.right = null;
-                    root = root.right;
-                }
+            if(rightMostNode.right == null) {         //First Time Visit
+                ans.add(curr.val);
+                rightMostNode.right = curr;
+                curr = curr.left;
+            } else {                                //Thread already created destroy it
+                rightMostNode.right = null;
+                curr = curr.right;
             }
-        }  
-        return list;
+        }
     }
+    
+    return ans;
+  }
 }
