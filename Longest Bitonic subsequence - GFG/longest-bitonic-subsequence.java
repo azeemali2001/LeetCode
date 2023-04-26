@@ -30,57 +30,52 @@ class GFG
 
 //User function Template for Java
 
-class Solution
-{
-    
-    public static int[] Lis(int[] arr){
-        int[] dp = new int[arr.length];
+class Solution {
+    public int LongestBitonicSequence(int[] nums) {
         
-        for(int i=0;i<arr.length;i++){
-            int maxLen = 0;
+        int n = nums.length;
+        
+        int[] lis = new int[n];
+        
+        for(int i=0;i<n;i++) {
             
-            for(int j=0;j<i;j++){
-                if(arr[j] < arr[i]){
-                    maxLen = Math.max(maxLen,dp[j]);
+            int max = 0;
+            for(int j=0;j<i;j++) {
+                if(nums[j] < nums[i]) {
+                    if(lis[j] > max) {
+                        max = lis[j];
+                    }
                 }
             }
             
-            maxLen ++;
-            dp[i] = maxLen;
+            lis[i] = max + 1;
         }
         
-        return dp;
-    }
-    
-    public static int[] RevLis(int[] arr){
-        int[] dp = new int[arr.length];
         
-        for(int i=arr.length-1;i>=0;i--){
-            int maxLen = 0;
+        int[] lds = new int[n];
+        
+        for(int i=nums.length-1;i>=0;i--) {
+            int max = 0;
             
-            for(int j=i+1;j<arr.length;j++){
-                if(arr[i] > arr[j]){
-                    maxLen = Math.max(maxLen,dp[j]);
+            for(int j=nums.length-1;j>i;j--) {
+                if(nums[j] < nums[i]) {
+                    if(lds[j] > max) {
+                        max = lds[j];
+                    }
                 }
             }
             
-            dp[i] = maxLen+1;
+            lds[i] = max + 1;
         }
-        
-        return dp;
-    }
-    
-    public int LongestBitonicSequence(int[] nums)
-    {
-        int[] lis = Lis(nums);
-        int[] revlis = RevLis(nums);
         
         int ans = 0;
         
-        for(int i=0;i<nums.length;i++){
-            ans = Math.max(ans,lis[i]+revlis[i]-1);
-        }
         
+        for(int i=0;i<n;i++) {
+            if(lis[i] + lds[i] - 1 > ans) {
+                ans = lis[i] + lds[i] - 1;
+            }
+        }
         
         return ans;
     }
