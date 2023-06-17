@@ -1,24 +1,26 @@
 class Solution {
-    public List<String> generateParenthesis(int n) {
-        List<String> ans = new ArrayList<>();
-        solve(ans, "", 0, 0, n);
-        return ans;
-    }
-    
-    
-    public void solve(List<String> ans,String str, int open, int close, int n) {
-        if(str.length() == 2 * n) {
-            ans.add(str);
+public:
+    vector<string> ans;
+    void solve(string s,int i,int n) {
+        if(i==n) {
+            int c = 0;
+            for(auto i: s){
+                if(i=='(') ++c;
+                else --c;
+                if(c<0) return;
+            }
+            if(c==0) ans.push_back(s);
             return;
         }
-        
-        
-        if(open < n) {
-            solve(ans, str + "(", open + 1, close, n);
-        }
-        
-        if(close < open) {
-            solve(ans, str + ")", open, close + 1, n);
-        }
+        s.push_back('(');
+        solve(s,i+1,n);
+        s.pop_back();
+        s.push_back(')');
+        solve(s,i+1,n);
     }
-}
+    vector<string> generateParenthesis(int n) {
+        ans.clear();
+        solve("",0,2*n);
+        return ans;
+    }
+};
