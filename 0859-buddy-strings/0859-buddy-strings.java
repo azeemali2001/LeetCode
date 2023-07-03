@@ -6,10 +6,11 @@ class Solution {
             Set<Character> hs = new HashSet<>();
             
             for(Character a : s.toCharArray()) {
+                if(hs.contains(a)) return true;
                 hs.add(a);
             }
             
-            return hs.size() < s.length();
+            return false;
         }
         
         
