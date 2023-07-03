@@ -13,16 +13,20 @@ class Solution {
         }
         
         
-        List<Integer> list = new ArrayList<>();
-        for(int i=0;i<s.length();i++) {
-            if(s.charAt(i) != goal.charAt(i)) {
-                list.add(i);
-            }
-        }
+        int i = 0;
+        while(i < s.length() && s.charAt(i) == goal.charAt(i)) i++;
         
+        int j = s.length()-1;
+        while(j>=0 && s.charAt(j) == goal.charAt(j)) j--;
         
-        if(list.size() == 2 && s.charAt(list.get(0)) == goal.charAt(list.get(1)) &&                          s.charAt(list.get(1)) == goal.charAt(list.get(0))) return true;
+        char[] arr = s.toCharArray();
         
-        return false;
+        char temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+        
+        s = new String(arr);
+        
+        return s.equals(goal);
     }
 }
