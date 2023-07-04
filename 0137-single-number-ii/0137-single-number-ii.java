@@ -1,21 +1,19 @@
 class Solution {
     public int singleNumber(int[] nums) {
-        HashMap<Integer,Integer> hm = new HashMap<>();
+        int ans = 0;
         
-        for(int val : nums) {
-            hm.put(val,hm.getOrDefault(val,0) + 1);
-            if(hm.get(val) == 3) {
-                hm.remove(val);
+        for(int j=0;j<=32;j++) {
+            
+            int mask = 1 << j;
+            int count = 0;
+            
+            for(int i=0;i<nums.length;i++) {
+                if((nums[i] & mask)== mask) count ++;
             }
+            
+            if(count % 3 != 0) ans = ans | mask;
         }
         
-        
-        for(Integer key : hm.keySet()) {
-            if(hm.get(key) == 1) {
-                return key;
-            }
-        }
-        
-        return 0;
+        return ans;
     }
 }
