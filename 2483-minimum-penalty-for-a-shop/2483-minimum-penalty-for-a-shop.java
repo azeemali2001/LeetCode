@@ -1,5 +1,6 @@
 class Solution {
     public int bestClosingTime(String str) {
+        str+='N';
         int y = 0;
         int n = 0;
         
@@ -26,8 +27,6 @@ class Solution {
             
             if(str.charAt(i) == 'N') n++;
         }
-        
-        if(n < ans) idx = str.length();
         
         return idx;
     }
