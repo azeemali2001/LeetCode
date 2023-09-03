@@ -5,7 +5,7 @@ class Solution {
         m--;
         n--;
         
-        if(m > n) {
+        if(m < n) {
             m = m+n;
             n = m-n;
             m = m-n;
@@ -13,6 +13,7 @@ class Solution {
         
         long res = 1;
         int j = 1;
+        
         for(int i = m+1; i <= m+n; i++, j++){       // Instead of taking factorial, keep on multiply & divide
             res *= i;
             res /= j;
