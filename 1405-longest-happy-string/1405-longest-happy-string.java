@@ -1,50 +1,65 @@
 class Solution {
+    
+    static class Pair {
+        char ch;
+        int count;
+        
+        Pair(char ch, int count) {
+            this.ch = ch;
+            this.count = count;
+        }
+    }
+    
     public String longestDiverseString(int a, int b, int c) {
+        
         StringBuilder sb = new StringBuilder();
         
-        int a_count = 0;
-        int b_count = 0;
-        int c_count = 0;
+        PriorityQueue<Pair> pq = new PriorityQueue<>((x,y)->y.count - x.count);
         
-        int total = a + b + c;
+        if(a > 0) {
+            pq.add(new Pair('a', a));
+        }
         
-        for(int i=0;i<total;i++) {
-            
-            if((a >= b && a >= c && a_count < 2) || (b_count == 2 && a > 0) || (c_count == 2 && a > 0)) {
-                sb.append('a');
-                
-                a--;
-                
-                a_count ++;
-                b_count = 0;
-                c_count = 0;
-            } 
-            
-            
-            else if((b >= a && b >= c && b_count < 2) || (a_count == 2 && b > 0) || (c_count == 2 && b > 0)) {
-                sb.append('b');
-                
-                b--;
-                
-                b_count ++;
-                a_count = 0;
-                c_count = 0;
-            }
-            
-            else if((c >= a && c >= b && c_count < 2) || (a_count == 2 && c > 0) || (b_count == 2 && c > 0) ){
-                sb.append('c');
-                
-                c--;
-                
-                c_count ++;
-                a_count = 0;
-                b_count = 0;
-                
-            }
-            
+        if(b > 0) {
+            pq.add(new Pair('b', b));
+        }
+        
+        if(c > 0) {
+            pq.add(new Pair('c', c));
         }
         
         
-        return sb.toString();
+        sb.append("dd");
+        
+        while(pq.size() != 0) {
+            
+            Pair top = pq.remove();
+            
+            if(top.ch == sb.charAt(sb.length()-1) && top.ch == sb.charAt(sb.length()-2)) {
+                
+                if(pq.size() == 0) break;
+                
+                Pair next = pq.remove();
+                
+                sb.append(next.ch);
+                
+                if(next.count > 1) {
+                    next.count --;
+                    pq.add(next);
+                }
+                
+                pq.add(top);
+            } else {
+                sb.append(top.ch);
+                
+                if(top.count > 1) {
+                    top.count --;
+                    
+                    pq.add(top);
+                }
+            }
+        }
+        
+        return sb.substring(2);
     }
 }
