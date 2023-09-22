@@ -1,47 +1,56 @@
 class Solution {
-    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int n = nums1.length + nums2.length;
+    public double findMedianSortedArrays(int[] a, int[] b) {
+        if(a.length > b.length) {
+            return findMedianSortedArrays(b, a);
+        }
         
-        int[] arr = new int[n];
+        int te = a.length + b.length;
         
-        int i = 0;
-        int j = 0;
-        int k = 0;
+        int lo = 0;
+        int hi = a.length;
         
-        while(i < nums1.length && j < nums2.length) {
-            int val1 = nums1[i];
-            int val2 = nums2[j];
+        
+        while(lo <= hi) {
             
-            if(val1 < val2) {
-                arr[k] = val1;
-                i++;
-            } else {
-                arr[k] = val2;
-                j++;
+            int aleft = (lo + hi)/2;
+            int bleft = ((te + 1) / 2) - aleft;
+            
+            int alm1 = (aleft == 0) ? Integer.MIN_VALUE : a[aleft-1];
+            int al = (aleft == a.length) ? Integer.MAX_VALUE : a[aleft];
+            
+            int blm1 = (bleft == 0) ? Integer.MIN_VALUE : b[bleft-1];
+            int bl = (bleft == b.length) ? Integer.MAX_VALUE : b[bleft];
+            
+            if(alm1 <= bl && blm1 <= al) {
+                // Favourable Condition
+                
+                double ans = 0.0;
+                
+                if(te % 2 == 0) {
+                    
+                    int max = Math.max(alm1, blm1);
+                    int min = Math.min(al, bl);    
+                    
+                    ans = (max + min) / 2.0;
+                    
+                } else {
+                    
+                    int max = Math.max(alm1, blm1);
+                    
+                    ans = max;
+                }
+                
+                return ans;
+                
+            } else if(alm1 > bl) {
+                
+                hi = aleft - 1;
+                
+            } else if(blm1 > al) {
+                
+                lo = aleft + 1;
             }
-            k++;
         }
-        
-        while(i<nums1.length) {
-            arr[k++] = nums1[i++];
-        }
-        
-        while(j<nums2.length) {
-            arr[k++] = nums2[j++];
-        }
-        
-        
-        
-        double ans = 0;
-        
-        int mid = n/2;
-        
-        if(n % 2 == 0) {
-            ans = arr[mid] + arr[mid-1];
-            ans = ans/2;
-        } else {
-            ans = arr[mid];
-        }
-        return ans;
+        return -1;
     }
 }
