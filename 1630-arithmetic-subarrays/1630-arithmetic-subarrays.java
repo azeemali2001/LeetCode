@@ -3,7 +3,13 @@ class Solution {
         List<Boolean> ans = new ArrayList<>();
         
         for(int i=0;i<l.length;i++) {
-            ans.add(check(nums, l[i], r[i]));
+            int[] arr = new int[r[i]-l[i]+1];
+            
+            for(int j=0;j<arr.length;j++) {
+                arr[j] = nums[l[i] + j];
+            }
+            
+            ans.add(check(arr));
         }
         
         
@@ -12,31 +18,37 @@ class Solution {
     
     
     
-    private boolean check(int[] arr, int l, int h) {
+    private boolean check(int[] arr) {
+        if(arr.length == 1) return true;
         
-        if(l-h == 1) return false;
+        Set<Integer> hs = new HashSet<>();
         
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
         
-        for(int i=l;i<=h;i++) {
-            pq.add(arr[i]);
+        for(int i=0;i<arr.length;i++) {
+            min = Math.min(min, arr[i]);
+            max = Math.max(max, arr[i]);
+            hs.add(arr[i]);
         }
         
-        int val1 = pq.remove();
-        int val2 = pq.remove();
+        if ((max - min) % (arr.length - 1) != 0) {
+            return false;
+        }
         
-        int dif = val2 - val1;
+        int diff = (max-min) / (arr.length-1);
+        int curr = min + diff;
         
-        while(pq.size() != 0) {
-            int val = pq.remove();
-            
-            if(val-val2 != dif) {
+        while(curr < max) {
+            if(!hs.contains(curr)) {
                 return false;
             }
             
-            val2 = val;
+            curr = curr + diff;
         }
         
+        
         return true;
+        
     }
 }
