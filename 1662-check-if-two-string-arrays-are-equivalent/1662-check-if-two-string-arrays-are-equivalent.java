@@ -1,20 +1,17 @@
 class Solution {
     public boolean arrayStringsAreEqual(String[] word1, String[] word2) {
-        StringBuilder sb = new StringBuilder();
-        StringBuilder sb2 = new StringBuilder();
+        StringBuffer sb1 = new StringBuffer();
+        StringBuffer sb2 = new StringBuffer();
         
-        for(String str : word1){
-            sb.append(str);
+        for(int i=0;i<word1.length;i++) {
+            sb1.append(word1[i]);
+        }
+        
+        for(int i=0;i<word2.length;i++) {
+            sb2.append(word2[i]);
         }
         
         
-        for(String str : word2){
-            sb2.append(str);
-        }
-        
-        if(sb.toString().equals(sb2.toString())){
-            return true;
-        }
-        return false;
+        return sb1.toString().equals(sb2.toString());
     }
 }
