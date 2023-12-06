@@ -1,28 +1,21 @@
 class Solution {
     public int totalMoney(int n) {
-        int r = n%7;
-        int q = n/7;
         
-        
-        
-        int st = 1;
         int ans = 0;
         
+        int week = n/7;
         
-        for(int i=0;i<q;i++) {
-            int cnt = 0;
-            while(cnt != 7) {
-                ans += st + cnt;
-                cnt ++;
-            }
-            
-            st ++;
+        for(int i=0;i<week;i++) {
+            ans += (28 + (i * 7));
         }
         
+        int remDays = n%7;
+        int currWeek = week + 1;
         
-        while(r--> 0) {
-            ans += st;
-            st ++;
+        int cnt = 0;
+        while(remDays --> 0) {
+            ans += currWeek + cnt;
+            cnt ++;
         }
         
         return ans;
