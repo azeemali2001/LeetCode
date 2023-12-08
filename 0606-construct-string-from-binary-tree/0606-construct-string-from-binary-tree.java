@@ -15,13 +15,13 @@
  */
 class Solution {
     
-    String ans;
+    StringBuilder ans;
     
     public String tree2str(TreeNode root) {
-        ans = "";
-        ans += root.val;
+        ans = new StringBuilder();
+        ans.append(root.val);
         solve(root);
-        return ans;
+        return ans.toString();
     }
     
     
@@ -31,19 +31,19 @@ class Solution {
         
         
         if(root.left != null) {
-            ans += "(";
-            ans += root.left.val;
+            ans.append("(");
+            ans.append(root.left.val);
             solve(root.left);
-            ans += ")";
+            ans.append(")");
         } else if(root.right != null) {
-            ans += "()";
+            ans.append("()");
         }
         
         if(root.right != null) {
-            ans += "(";
-            ans += root.right.val;
+            ans.append("(");
+            ans.append(root.right.val);
             solve(root.right);
-            ans += ")";
+            ans.append(")");
         }
     }
 }
