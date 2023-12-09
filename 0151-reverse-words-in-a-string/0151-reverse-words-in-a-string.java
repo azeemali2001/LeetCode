@@ -1,44 +1,34 @@
 class Solution {
     public String reverseWords(String s) {
-        ArrayList<String> arr = new ArrayList<>();
+        int i = s.length()-1;
+        int j = s.length()-1;
         
-        for(int i=0;i<s.length();i++){
-            char ch = s.charAt(i);
+        while(j>=0 && s.charAt(j) == ' ') j--;
+        i = j;
+        
+        int st = 0;
+        while(st < s.length() && s.charAt(st) == ' ') st ++;
+        
+        StringBuilder ans = new StringBuilder();
+        
+        while(i >= 0) {
             
-            if(ch == ' '){
-                
+            
+            while(j >= 0 && s.charAt(j) != ' ') j--;
+            
+            if(j<st) {
+                ans.append(s.substring(j+1, i+1));
             } else {
-                StringBuilder a = new StringBuilder();
-                while(i!= s.length() && s.charAt(i) != ' '){
-                    a.append(s.charAt(i));
-                    i++;
-                }
-                arr.add(a.toString());
+                ans.append(s.substring(j+1, i+1) + " ");
             }
+            
+            
+            while(j >= 0 && s.charAt(j) == ' ') j--;
+            
+            i = j;
+            
         }
         
-        
-        int i=0;
-        int j=arr.size()-1;
-        
-        while(i<j){
-            String tem = arr.get(i);
-            arr.set(i,arr.get(j));
-            arr.set(j,tem);
-            i++;
-            j--;
-        }
-        
-        StringBuilder sb = new StringBuilder();
-        
-        for(int a=0;a<arr.size();a++){
-            if(a==arr.size()-1){
-                sb.append(arr.get(a));
-            } else {
-                sb.append(arr.get(a)+" ");
-            }
-        }
-        
-        return sb.toString();
+        return ans.toString();
     }
 }
