@@ -1,44 +1,31 @@
 class Solution {
     
-    public static boolean isVowel(char[] arr,int idx){
-        char ch = arr[idx];
-        if(ch == 'a' || ch == 'e' || ch == 'i'  || ch == 'o' || ch == 'u' || 
-          ch == 'A' || ch == 'E' || ch == 'I'  || ch == 'O' || ch == 'U'){
-            return true;
-        }
+    public boolean isVowel(char a) {
+        if(a == 'a' || a == 'e' || a == 'i' || a == 'o' || a == 'u') return true;
+        if(a == 'A' || a == 'E' || a == 'I' || a == 'O' || a == 'U') return true;
+        
         return false;
     }
     
-    public static void swap(char[] arr,int i,int j){
-        char ch = arr[i];
-        arr[i] = arr[j];
-        arr[j] = ch;
-    }
-    
     public String reverseVowels(String s) {
+        int i = 0;
+        int j = s.length()-1;
+        
         char[] arr = s.toCharArray();
-        int lo = 0;
-        int hi = arr.length-1;
         
-        while(lo < hi){
-            while(lo<hi && isVowel(arr,lo) == false){
-                lo++;
-            }
+        while(i < j) {
+            while(i < arr.length && !isVowel(arr[i])) i++;
+            while(j >= 0 && !isVowel(arr[j])) j--;
             
-            while(lo<hi && isVowel(arr,hi) == false){
-                hi--;
+            if(i < j) {
+                char temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+                i++;
+                j--;
             }
-            
-            swap(arr,lo,hi);
-            lo++;
-            hi--;
         }
         
-        StringBuilder sb = new StringBuilder();
-        for(char ch : arr){
-            sb.append(ch);
-        }
-        
-        return sb.toString();
+        return new String(arr);
     }
 }
