@@ -1,25 +1,21 @@
 class Solution {
-    public int pivotIndex(int[] arr) {
+    public int pivotIndex(int[] nums) {
+        int rs = 0;
+        for(int val : nums) rs += val;
         
         int ls = 0;
-        int rs = 0;
-        for(int i=0;i<arr.length;i++)
-        {
-            rs+=arr[i];
-        }
         
-        
-        for(int i=0;i<arr.length;i++)
-        {
-            rs -= arr[i];   
-            if(ls == rs)
-            {
+        for(int i=0;i<nums.length;i++) {
+            
+            rs -= nums[i];
+            
+            if(ls == rs) {
                 return i;
-            }
-            ls += arr[i];
+            }    
+            
+            ls += nums[i];
             
         }
-        
         return -1;
     }
 }
